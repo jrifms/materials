@@ -4,7 +4,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views  # Importe suas views
 
+app_name = "disciplines"
+
 urlpatterns = [
+
+    path("conteudos/",views.listar_conteudos,name="listar_conteudos"),
+
+    path("conteudos/<int:conteudo_id>/",views.visualizar_conteudo,name="visualizar_conteudo"),
+
+    
     # ... suas outras URLs
     path('tinymce/', include('tinymce.urls')),
     path('upload-file/', views.upload_file, name='upload_file'),  # Rota para o upload

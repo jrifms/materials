@@ -23,11 +23,12 @@ class Disciplina(models.Model):
 
 class Conteudo(models.Model):
     # Substituído TextField por HTMLField para ter o editor
-    descricao = HTMLField(max_length=100)  
+    titulo        = models.CharField(max_length=500, default="Novo Conteúdo")
+    descricao = models.TextField(max_length=1000000000000)  
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.disciplina.nome} - {self.descricao[:50]}"
+        return f"{self.disciplina.nome} - {self.titulo}"
 
 class Atividades(models.Model):
     # Substituído TextField por HTMLField para ter o editor
@@ -36,4 +37,4 @@ class Atividades(models.Model):
 
     def __str__(self):
         # Corrigido erro de sintaxe
-        return f"{self.conteudo.descricao[:50]} - {self.descricao[:50]}"
+        return f"{self.conteudo.titulo} - {self.descricao[:50]}"

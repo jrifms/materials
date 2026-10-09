@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Materiais didáticos</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #174ea6;
+        }
+
+        .subtitulo {
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .disciplina {
+            margin-top: 30px;
+            margin-bottom: 12px;
+            font-size: 20px;
+            color: #174ea6;
+        }
+
+        .lista-conteudos {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            display: block;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-decoration: none;
+            color: inherit;
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #174ea6;
+        }
+
+        .nivel {
+            display: inline-block;
+            margin-bottom: 12px;
+            padding: 5px 9px;
+            background: #e8eefb;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .abrir {
+            display: inline-block;
+            margin-top: 10px;
+            color: #174ea6;
+            font-weight: bold;
+        }
+
+        .vazio {
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <h1>Materiais didáticos</h1>
+
+        <p class="subtitulo">
+            Selecione um conteúdo para abrir o material completo.
+        </p>
+
+        {% regroup conteudos by disciplina as grupos %}
+
+        {% for grupo in grupos %}
+
+            <h2 class="disciplina">
+                {{ grupo.grouper.nome }}
+            </h2>
+
+            <div class="lista-conteudos">
+
+                {% for conteudo in grupo.list %}
+
+                    <a
+                        class="card"
+                        href="{% url 'disciplines:visualizar_conteudo' conteudo.id %}"
+                    >
+
+                        <span class="nivel">
+                            {{ conteudo.disciplina.nivel.get_nome_display }}
+                        </span>
+
+                        <h3>
+                            {{ conteudo.titulo }}
+                        </h3>
+
+                        <p>
+                            Disciplina:
+                            {{ conteudo.disciplina.nome }}
+                        </p>
+
+                        <span class="abrir">
+                            Abrir conteúdo →
+                        </span>
+
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+        {% empty %}
+
+            <div class="vazio">
+                <p>Nenhum conteúdo foi cadastrado.</p>
+            </div>
+
+        {% endfor %}
+
+    </main>
+
+</body>
+</html>

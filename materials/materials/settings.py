@@ -136,26 +136,53 @@ MAILERS = {
 
 
 
-# Configuração básica do TinyMCE
 TINYMCE_DEFAULT_CONFIG = {
-    'height': 500,
+    'height': 700,
     'menubar': 'file edit view insert format tools table help',
-    'plugins': 'print preview paste importcss searchreplace autolink autosave save code visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap emoticons quickbars',
-    'toolbar': 'fullscreen preview | undo redo | bold italic forecolor backcolor | formatselect | image link | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist checklist | fontsizeselect emoticons',
+
+    'plugins': (
+        'code fullpagehtml print preview paste importcss '
+        'searchreplace autolink autosave save visualblocks '
+        'visualchars fullscreen image link media template '
+        'codesample table charmap hr pagebreak nonbreaking '
+        'anchor toc insertdatetime advlist lists wordcount '
+        'noneditable help emoticons quickbars'
+    ),
+
+    'toolbar': (
+        'fullscreen preview | undo redo | '
+        'bold italic forecolor backcolor | '
+        'formatselect | image link | '
+        'alignleft aligncenter alignright alignjustify | '
+        'outdent indent | numlist bullist | '
+        'fontsizeselect emoticons | code fullpagehtml'
+    ),
+
     'custom_undo_redo_levels': 50,
+
     'quickbars_insert_toolbar': False,
-    'content_style': 'body { font-family:Roboto,Helvetica,Arial,sans-serif; font-size:14px }',
-    'images_upload_url': '/upload-file/',  # URL para onde o TinyMCE enviará os arquivos
-    # ... outras configurações ...
-    'valid_elements': '*[*]',          # Permite todos os elementos e atributos
-    'extended_valid_elements': '*[*]',
-    'verify_html': False,               # Desativa a limpeza de HTML
-    'allow_script_urls': True,          # Permite URLs em scripts
-    'allow_conditional_comments': True,
-    # Define quais atributos a tag <link> pode ter
-    'extended_valid_elements': 'link[href|rel|type|media]',
-    # Trata a tag <link> como um "elemento customizado" para que não seja removida
-    'custom_elements': 'link,~link',
+
+    'content_style': (
+        'body { '
+        'font-family: Roboto, Helvetica, Arial, sans-serif; '
+        'font-size: 14px; '
+        '}'
+    ),
+
+    'images_upload_url': '/upload-file/',
+
+    # Permite elementos e atributos adicionais.
+    # Use somente quando o conteúdo HTML for confiável.
+    'valid_elements': '*[*]',
+
+    # Permite elementos adicionais.
+    'extended_valid_elements': 'meta[*],link[*],style[*]',
+
+    # Permite style dentro do body.
+    'valid_children': '+body[style|link]',
+
+    # Define o tipo de documento HTML.
+    'fullpagehtml_default_doctype': '<!DOCTYPE html>',
 }
 
 # Configurações de mídia (se ainda não tiver)
