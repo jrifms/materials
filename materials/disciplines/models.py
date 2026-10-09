@@ -24,7 +24,7 @@ class Disciplina(models.Model):
 class Conteudo(models.Model):
     # Substituído TextField por HTMLField para ter o editor
     titulo        = models.CharField(max_length=500, default="Novo Conteúdo")
-    descricao = models.TextField(max_length=1000000000000)  
+    descricao = models.TextField(max_length=5000000000000)  
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
 
     def __str__(self):
